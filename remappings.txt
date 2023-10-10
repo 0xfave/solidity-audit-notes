@@ -5,3 +5,4 @@ ds-test/=lib/forge-std/lib/ds-test/src/
 forge-std/=lib/forge-std/src/
 @prb/math/=lib/prb-math/src/
 @prb/test/=lib/prb-math/lib/prb-test/test/
+solmate/=lib/solmate/src/

@@ -14,6 +14,8 @@ contract UniswapV1Test is Test {
     uint128 constant INITIAL_LIQUIDITY = 100 ether;
     uint128 constant USER_LIQUIDITY = 1000 ether;
     uint128 constant TOKEN_AMOUNT = 2000 ether;
+    uint128 constant TOKEN_SWAP_AMOUNT = 18 ether;
+    uint128 constant SWAP_ETHIN_AMOUNT = 10 ether;
 
     address deployer = makeAddr("deployer");
     address user = makeAddr("user");
@@ -92,5 +94,18 @@ contract UniswapV1Test is Test {
         ethOut = exchange.getTokenAmount(2000 ether);
         console.log(ethOut);
         assertEq(vm.toString(ethOut), "500.0");
+    }
+
+    function testExchangeLifeCycle() public {
+        vm.startPrank(user);
+        token.approve(address(exchange), TOKEN_AMOUNT);
+        exchange.addLiquidity{value: USER_LIQUIDITY}(TOKEN_AMOUNT);
+        vm.stopPrank();
+
+        vm.prank(user2);
+        exchange.ethToTokenSwap{value: SWAP_ETHIN_AMOUNT}(TOKEN_SWAP_AMOUNT);
+
+        vm.prank(user);
+        exchange.removeLiquidity(USER_LIQUIDITY);
     }
 }
