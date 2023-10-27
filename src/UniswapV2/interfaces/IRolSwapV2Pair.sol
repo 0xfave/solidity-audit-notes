@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Unlicense
-pragma solidity 0.8.19;
+pragma solidity ^0.8.10;
 
 interface IRolSwapV2Pair {
     function initialize(address, address) external;
@@ -13,4 +13,19 @@ interface IRolSwapV2Pair {
         );
 
     function mint(address) external returns (uint256);
+
+    function burn(address) external returns (uint256, uint256);
+
+    function transferFrom(
+        address,
+        address,
+        uint256
+    ) external returns (bool);
+
+    function swap(
+        uint256,
+        uint256,
+        address,
+        bytes calldata
+    ) external;
 }
